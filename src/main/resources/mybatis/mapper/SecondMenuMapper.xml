@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.SecondMenuMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.SecondMenu">
+    <id column="second_id" jdbcType="VARCHAR" property="secondId" />
+    <result column="second_superior" jdbcType="VARCHAR" property="secondSuperior" />
+    <result column="second_name" jdbcType="VARCHAR" property="secondName" />
+    <result column="second_state" jdbcType="INTEGER" property="secondState" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from second_menu
+    where second_id = #{secondId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.SecondMenu">
+    insert into second_menu (second_id, second_superior, second_name, 
+      second_state)
+    values (#{secondId,jdbcType=VARCHAR}, #{secondSuperior,jdbcType=VARCHAR}, #{secondName,jdbcType=VARCHAR}, 
+      #{secondState,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.SecondMenu">
+    update second_menu
+    set second_superior = #{secondSuperior,jdbcType=VARCHAR},
+      second_name = #{secondName,jdbcType=VARCHAR},
+      second_state = #{secondState,jdbcType=INTEGER}
+    where second_id = #{secondId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select second_id, second_superior, second_name, second_state
+    from second_menu
+    where second_id = #{secondId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select second_id, second_superior, second_name, second_state
+    from second_menu
+  </select>
+</mapper>

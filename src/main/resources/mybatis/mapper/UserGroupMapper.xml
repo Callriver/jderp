@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.UserGroupMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.UserGroup">
+    <id column="user_group_id" jdbcType="VARCHAR" property="userGroupId" />
+    <result column="user_group_name" jdbcType="VARCHAR" property="userGroupName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_group
+    where user_group_id = #{userGroupId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.UserGroup">
+    insert into user_group (user_group_id, user_group_name)
+    values (#{userGroupId,jdbcType=VARCHAR}, #{userGroupName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.UserGroup">
+    update user_group
+    set user_group_name = #{userGroupName,jdbcType=VARCHAR}
+    where user_group_id = #{userGroupId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select user_group_id, user_group_name
+    from user_group
+    where user_group_id = #{userGroupId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_group_id, user_group_name
+    from user_group
+  </select>
+</mapper>

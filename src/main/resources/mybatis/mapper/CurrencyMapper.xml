@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.CurrencyMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.Currency">
+    <id column="currency_id" jdbcType="VARCHAR" property="currencyId" />
+    <result column="currency_name" jdbcType="VARCHAR" property="currencyName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from currency
+    where currency_id = #{currencyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.Currency">
+    insert into currency (currency_id, currency_name)
+    values (#{currencyId,jdbcType=VARCHAR}, #{currencyName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.Currency">
+    update currency
+    set currency_name = #{currencyName,jdbcType=VARCHAR}
+    where currency_id = #{currencyId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select currency_id, currency_name
+    from currency
+    where currency_id = #{currencyId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select currency_id, currency_name
+    from currency
+  </select>
+</mapper>

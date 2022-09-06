@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.SystemSetMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.SystemSet">
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="cost_year" jdbcType="VARCHAR" property="costYear" />
+    <result column="cost_month" jdbcType="VARCHAR" property="costMonth" />
+  </resultMap>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.SystemSet">
+    insert into system_set (customer_id, cost_year, cost_month
+      )
+    values (#{customerId,jdbcType=VARCHAR}, #{costYear,jdbcType=VARCHAR}, #{costMonth,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select customer_id, cost_year, cost_month
+    from system_set
+  </select>
+</mapper>

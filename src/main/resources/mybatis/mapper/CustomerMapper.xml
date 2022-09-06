@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.Customer">
+    <id column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+    <result column="superior_id" jdbcType="VARCHAR" property="superiorId" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="customer_type" jdbcType="INTEGER" property="customerType" />
+    <result column="is_supplier" jdbcType="BIT" property="isSupplier" />
+    <result column="is_customer" jdbcType="BIT" property="isCustomer" />
+    <result column="customer_note" jdbcType="VARCHAR" property="customerNote" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from customer
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.Customer">
+    insert into customer (customer_id, `name`, tel, 
+      address, business_license, superior_id, 
+      `state`, customer_type, is_supplier, 
+      is_customer, customer_note)
+    values (#{customerId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{businessLicense,jdbcType=VARCHAR}, #{superiorId,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{customerType,jdbcType=INTEGER}, #{isSupplier,jdbcType=BIT}, 
+      #{isCustomer,jdbcType=BIT}, #{customerNote,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.Customer">
+    update customer
+    set `name` = #{name,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      business_license = #{businessLicense,jdbcType=VARCHAR},
+      superior_id = #{superiorId,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=INTEGER},
+      is_supplier = #{isSupplier,jdbcType=BIT},
+      is_customer = #{isCustomer,jdbcType=BIT},
+      customer_note = #{customerNote,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select customer_id, `name`, tel, address, business_license, superior_id, `state`, 
+    customer_type, is_supplier, is_customer, customer_note
+    from customer
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select customer_id, `name`, tel, address, business_license, superior_id, `state`, 
+    customer_type, is_supplier, is_customer, customer_note
+    from customer
+  </select>
+</mapper>

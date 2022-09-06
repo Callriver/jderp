@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.CarMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.Car">
+    <id column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="car_name" jdbcType="VARCHAR" property="carName" />
+    <result column="car_card" jdbcType="VARCHAR" property="carCard" />
+    <result column="car_type" jdbcType="INTEGER" property="carType" />
+    <result column="car_state" jdbcType="INTEGER" property="carState" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car
+    where car_id = #{carId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.Car">
+    insert into car (car_id, car_name, car_card, 
+      car_type, car_state)
+    values (#{carId,jdbcType=INTEGER}, #{carName,jdbcType=VARCHAR}, #{carCard,jdbcType=VARCHAR}, 
+      #{carType,jdbcType=INTEGER}, #{carState,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.Car">
+    update car
+    set car_name = #{carName,jdbcType=VARCHAR},
+      car_card = #{carCard,jdbcType=VARCHAR},
+      car_type = #{carType,jdbcType=INTEGER},
+      car_state = #{carState,jdbcType=INTEGER}
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select car_id, car_name, car_card, car_type, car_state
+    from car
+    where car_id = #{carId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select car_id, car_name, car_card, car_type, car_state
+    from car
+  </select>
+</mapper>

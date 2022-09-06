@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.InventoryoprMainMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.InventoryoprMain">
+    <id column="inventoryopr_main_code" jdbcType="VARCHAR" property="inventoryoprMainCode" />
+    <result column="warehouse_id" jdbcType="VARCHAR" property="warehouseId" />
+    <result column="opsite_warehouse_id" jdbcType="VARCHAR" property="opsiteWarehouseId" />
+    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="inventoryopr_type" jdbcType="VARCHAR" property="inventoryoprType" />
+    <result column="original_code" jdbcType="VARCHAR" property="originalCode" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="handle_user" jdbcType="VARCHAR" property="handleUser" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from inventoryopr_main
+    where inventoryopr_main_code = #{inventoryoprMainCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.InventoryoprMain">
+    insert into inventoryopr_main (inventoryopr_main_code, warehouse_id, 
+      opsite_warehouse_id, department_id, customer_id, 
+      inventoryopr_type, original_code, handle_time, 
+      handle_user)
+    values (#{inventoryoprMainCode,jdbcType=VARCHAR}, #{warehouseId,jdbcType=VARCHAR}, 
+      #{opsiteWarehouseId,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{inventoryoprType,jdbcType=VARCHAR}, #{originalCode,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, 
+      #{handleUser,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.InventoryoprMain">
+    update inventoryopr_main
+    set warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      opsite_warehouse_id = #{opsiteWarehouseId,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      inventoryopr_type = #{inventoryoprType,jdbcType=VARCHAR},
+      original_code = #{originalCode,jdbcType=VARCHAR},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      handle_user = #{handleUser,jdbcType=VARCHAR}
+    where inventoryopr_main_code = #{inventoryoprMainCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select inventoryopr_main_code, warehouse_id, opsite_warehouse_id, department_id, 
+    customer_id, inventoryopr_type, original_code, handle_time, handle_user
+    from inventoryopr_main
+    where inventoryopr_main_code = #{inventoryoprMainCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select inventoryopr_main_code, warehouse_id, opsite_warehouse_id, department_id, 
+    customer_id, inventoryopr_type, original_code, handle_time, handle_user
+    from inventoryopr_main
+  </select>
+</mapper>

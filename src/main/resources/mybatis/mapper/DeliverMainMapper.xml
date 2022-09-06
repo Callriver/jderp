@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.DeliverMainMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.DeliverMain">
+    <id column="deliver_main_code" jdbcType="VARCHAR" property="deliverMainCode" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="is_return" jdbcType="BIT" property="isReturn" />
+    <result column="warehouse_id" jdbcType="VARCHAR" property="warehouseId" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="entry_user" jdbcType="VARCHAR" property="entryUser" />
+    <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="issued_user" jdbcType="VARCHAR" property="issuedUser" />
+    <result column="issued_time" jdbcType="TIMESTAMP" property="issuedTime" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from deliver_main
+    where deliver_main_code = #{deliverMainCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.DeliverMain">
+    insert into deliver_main (deliver_main_code, customer_id, is_return, 
+      warehouse_id, currency, entry_user, 
+      entry_time, issued_user, issued_time, 
+      note)
+    values (#{deliverMainCode,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{isReturn,jdbcType=BIT}, 
+      #{warehouseId,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, #{entryUser,jdbcType=VARCHAR}, 
+      #{entryTime,jdbcType=TIMESTAMP}, #{issuedUser,jdbcType=VARCHAR}, #{issuedTime,jdbcType=TIMESTAMP}, 
+      #{note,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.DeliverMain">
+    update deliver_main
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      is_return = #{isReturn,jdbcType=BIT},
+      warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      entry_user = #{entryUser,jdbcType=VARCHAR},
+      entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      issued_user = #{issuedUser,jdbcType=VARCHAR},
+      issued_time = #{issuedTime,jdbcType=TIMESTAMP},
+      note = #{note,jdbcType=VARCHAR}
+    where deliver_main_code = #{deliverMainCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select deliver_main_code, customer_id, is_return, warehouse_id, currency, entry_user, 
+    entry_time, issued_user, issued_time, note
+    from deliver_main
+    where deliver_main_code = #{deliverMainCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select deliver_main_code, customer_id, is_return, warehouse_id, currency, entry_user, 
+    entry_time, issued_user, issued_time, note
+    from deliver_main
+  </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.CommodityMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.Commodity">
+    <id column="commodity_id" jdbcType="VARCHAR" property="commodityId" />
+    <result column="commodity_name" jdbcType="VARCHAR" property="commodityName" />
+    <result column="purchase_price" jdbcType="DECIMAL" property="purchasePrice" />
+    <result column="sales_price" jdbcType="DECIMAL" property="salesPrice" />
+    <result column="commodity_image" jdbcType="VARCHAR" property="commodityImage" />
+    <result column="operation_user" jdbcType="VARCHAR" property="operationUser" />
+    <result column="operation_date" jdbcType="TIMESTAMP" property="operationDate" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from commodity
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.Commodity">
+    insert into commodity (commodity_id, commodity_name, purchase_price, 
+      sales_price, commodity_image, operation_user, 
+      operation_date)
+    values (#{commodityId,jdbcType=VARCHAR}, #{commodityName,jdbcType=VARCHAR}, #{purchasePrice,jdbcType=DECIMAL}, 
+      #{salesPrice,jdbcType=DECIMAL}, #{commodityImage,jdbcType=VARCHAR}, #{operationUser,jdbcType=VARCHAR}, 
+      #{operationDate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.Commodity">
+    update commodity
+    set commodity_name = #{commodityName,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      sales_price = #{salesPrice,jdbcType=DECIMAL},
+      commodity_image = #{commodityImage,jdbcType=VARCHAR},
+      operation_user = #{operationUser,jdbcType=VARCHAR},
+      operation_date = #{operationDate,jdbcType=TIMESTAMP}
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select commodity_id, commodity_name, purchase_price, sales_price, commodity_image, 
+    operation_user, operation_date
+    from commodity
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select commodity_id, commodity_name, purchase_price, sales_price, commodity_image, 
+    operation_user, operation_date
+    from commodity
+  </select>
+</mapper>

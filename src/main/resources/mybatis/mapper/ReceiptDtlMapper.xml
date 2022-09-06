@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.ReceiptDtlMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.ReceiptDtl">
+    <id column="receipt_main_code" jdbcType="VARCHAR" property="receiptMainCode" />
+    <id column="sequence" jdbcType="INTEGER" property="sequence" />
+    <id column="item" jdbcType="VARCHAR" property="item" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from receipt_dtl
+    where receipt_main_code = #{receiptMainCode,jdbcType=VARCHAR}
+      and `sequence` = #{sequence,jdbcType=INTEGER}
+      and item = #{item,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.ReceiptDtl">
+    insert into receipt_dtl (receipt_main_code, `sequence`, item, 
+      num, unit, unit_price, 
+      price, note)
+    values (#{receiptMainCode,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, 
+      #{num,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jdsoft.orm.model.ReceiptDtl">
+    update receipt_dtl
+    set num = #{num,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      note = #{note,jdbcType=VARCHAR}
+    where receipt_main_code = #{receiptMainCode,jdbcType=VARCHAR}
+      and `sequence` = #{sequence,jdbcType=INTEGER}
+      and item = #{item,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select receipt_main_code, `sequence`, item, num, unit, unit_price, price, note
+    from receipt_dtl
+    where receipt_main_code = #{receiptMainCode,jdbcType=VARCHAR}
+      and `sequence` = #{sequence,jdbcType=INTEGER}
+      and item = #{item,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select receipt_main_code, `sequence`, item, num, unit, unit_price, price, note
+    from receipt_dtl
+  </select>
+</mapper>

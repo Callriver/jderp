@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdsoft.orm.dao.UserAuthMapper">
+  <resultMap id="BaseResultMap" type="com.jdsoft.orm.model.UserAuth">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <id column="second_id" jdbcType="VARCHAR" property="secondId" />
+    <id column="first_id" jdbcType="VARCHAR" property="firstId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user_auth
+    where user_id = #{userId,jdbcType=VARCHAR}
+      and second_id = #{secondId,jdbcType=VARCHAR}
+      and first_id = #{firstId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jdsoft.orm.model.UserAuth">
+    insert into user_auth (user_id, second_id, first_id
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{secondId,jdbcType=VARCHAR}, #{firstId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, second_id, first_id
+    from user_auth
+  </select>
+</mapper>
