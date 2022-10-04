@@ -39,19 +39,19 @@
     select user_id, user_name, user_pwd, user_file_space, user_phone, user_email
     from user
   </select>
-  <select id="selectByUserIdPwd" resultMap="BaseResultMap">
+  <select id="selectByUserIdPwd" parameterType="java.lang.String" resultMap="BaseResultMap">
     select user_id, user_name, user_pwd, user_file_space, user_phone, user_email
     from user
     where user_id = #{loginCode,jdbcType=VARCHAR}
     and user_pwd = #{password,jdbcType=VARCHAR}
   </select>
-  <select id="selectByUserPhonePwd" resultMap="BaseResultMap">
+  <select id="selectByUserPhonePwd" parameterType="java.lang.String" resultMap="BaseResultMap">
     select user_id, user_name, user_pwd, user_file_space, user_phone, user_email
     from user
     where user_phone = #{loginCode,jdbcType=VARCHAR}
       and user_pwd = #{password,jdbcType=VARCHAR}
   </select>
-  <select id="selectByUserEmailPwd" resultMap="BaseResultMap">
+  <select id="selectByUserEmailPwd" parameterType="java.lang.String" resultMap="BaseResultMap">
     select user_id, user_name, user_pwd, user_file_space, user_phone, user_email
     from user
     where user_email = #{loginCode,jdbcType=VARCHAR}

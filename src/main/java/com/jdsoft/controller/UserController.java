@@ -18,13 +18,10 @@ public class UserController<passWord> {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Object add(@RequestBody User user){
-        System.out.println(user.toString());
-        User result = userService.add(user);
-        if (result!=null){
-            return Result.ok(result);
-        }else {
-            return Result.fail("");
-        }
+
+        Result result = userService.add(user);
+        System.out.println(result.toString());
+        return result;
     }
 
     /**
@@ -34,13 +31,9 @@ public class UserController<passWord> {
      */
     @RequestMapping(value = "/del",method = RequestMethod.POST)
     public Object del(@RequestBody User user){
-        boolean result = userService.del(user);
-        System.out.println(user.toString());
-        if (result){
-            return Result.ok();
-        }else {
-            return Result.fail("");
-        }
+        Result result = userService.del(user);
+        System.out.println(result.toString());
+        return result;
     }
     /**
      * 更新用户
@@ -49,13 +42,9 @@ public class UserController<passWord> {
      */
     @RequestMapping(value = "/upd",method = RequestMethod.POST)
     public Object upd(@RequestBody User user){
-        boolean result = userService.del(user);
+        Result result = userService.upd(user);
         System.out.println(user.toString());
-        if (result){
-            return Result.ok();
-        }else {
-            return Result.fail("");
-        }
+        return result;
     }
 
     /**
@@ -66,14 +55,10 @@ public class UserController<passWord> {
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Object login(@RequestBody String loginCode,String passWord){
-        User result = userService.login(loginCode,passWord);
+        Result result = userService.login(loginCode,passWord);
         System.out.println(result.toString());
 
-        if (result!=null){
-            return Result.ok(result);
-        }else {
-            return Result.fail("",result);
-        }
+        return result;
     }
 
     /**
@@ -83,13 +68,16 @@ public class UserController<passWord> {
      */
     @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public Object logout(@RequestBody User user){
-        boolean result = userService.logout(user);
-        System.out.println(result);
-        if (result){
-            return Result.ok();
-        }else {
-            return Result.fail("");
-        }
+        Result result = userService.logout(user);
+        System.out.println(result.toString());
+        return result;
+    }
+
+    @RequestMapping(value = "/qry",method = RequestMethod.POST)
+    public Object qry(@RequestBody String userId){
+        Result result = userService.qryUserById(userId);
+        System.out.println(result.toString());
+        return result;
     }
 
 }

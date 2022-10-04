@@ -1,8 +1,10 @@
 package com.jdsoft.service.impl;
 
+import com.jdsoft.exception.enums.ErrorEnum;
 import com.jdsoft.orm.dao.UserMapper;
 import com.jdsoft.orm.model.User;
 import com.jdsoft.service.UserService;
+import com.jdsoft.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +19,17 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User add(User user) {
+    public Result add(User user) {
         Integer count = userMapper.checkUserExist(user.getUserId(), user.getUserPhone(), user.getUserEmail());
         if (count>0){
-            return null;
+            return  Result.fail(ErrorEnum.ADD.getCode(),"添加失败，该用户代码或手机邮箱已被注册");
         }else {
             user.setUserFileSpace("/"+user.getUserId());
-            int result = userMapper.insert(user);
-            if (result>0){
-                return user;
+            int count1 = userMapper.insert(user);
+            if (count1>0){
+                return Result.success("success");
             }else {
-                return null;
+                return Result.fail(ErrorEnum.ADD.getCode(),ErrorEnum.ADD.getMsg());
             }
         }
 
@@ -39,12 +41,12 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public boolean del(User user) {
+    public Result del(User user) {
         int i = userMapper.deleteByPrimaryKey(user.getUserId());
         if (i>0){
-            return true;
+            return Result.success("success");
         }else {
-            return false;
+            return Result.fail(ErrorEnum.DELETE.getCode(),ErrorEnum.DELETE.getMsg());
         }
 
     }
@@ -55,12 +57,12 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User upd(User user) {
+    public Result upd(User user) {
         int i = userMapper.updateByPrimaryKey(user);
         if (i>0){
-            return user;
+            return Result.success("success");
         }else {
-            return null;
+            return Result.fail(ErrorEnum.UPDATE.getCode(),ErrorEnum.UPDATE.getMsg());
         }
     }
 
@@ -71,19 +73,19 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User login(String loginCode, String password) {
+    public Result login(String loginCode, String password) {
         User user = userMapper.selectByUserIdPwd(loginCode, password);
         User user1 = userMapper.selectByUserEmailPwd(loginCode, password);
         User user2 = userMapper.selectByUserPhonePwd(loginCode, password);
 
         if (user!=null){
-            return user;
+            return Result.success("success",user);
         }else if (user1!=null){
-            return user1;
+            return Result.success("success",user1);
         }else if (user2!=null){
-            return user2;
+            return Result.success("success",user1);
         }else {
-            return null;
+            return Result.fail(ErrorEnum.LOGIN.getCode(), "用户名或密码不正确");
         }
     }
 
@@ -93,8 +95,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public boolean logout(User user) {
-        return true;
+    public Result logout(User user) {
+        return Result.success("success");
     }
 
     /**
@@ -103,8 +105,14 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User qryUserById(String user_Id) {
+    public Result qryUserById(String user_Id) {
         User user = userMapper.selectByPrimaryKey(user_Id);
-        return user;
+        System.out.println(user.toString());
+        if (user!=null){
+            return Result.success("success",user);
+        }else {
+            return Result.fail(ErrorEnum.QUERY.getCode(),ErrorEnum.QUERY.getMsg());
+        }
+
     }
 }

@@ -15,66 +15,74 @@ import java.util.Map;
  * 通用返回类
  */
 
-public class Result  {
+public class Result<T>  {
     /**
      * Constructs an empty <tt>HashMap</tt> with the default initial capacity
      * (16) and the default load factor (0.75).
      */
-    private static JSONObject json;
+    private int code;
+    private String msg;
+    private T data;
 
-    /**
-     * 成功
-     * @return
-     */
-    public static String ok(){
-        //为true的话默认排序
-        json=new JSONObject(true);
-        json.put("status","200");
-        json.put("msg","success");
-        json.put("data",null);
-        return json.toJSONString();
+
+    public Result(){
+
     }
 
-    /**
-     * 带数据成功
-     * @param obj
-     * @return
-     */
-    public static String ok(Object obj){
-        //为true的话默认排序
-        json=new JSONObject(true);
-        json.put("status","200");
-        json.put("msg","success");
-        json.put("data",obj);
-        return json.toJSONString();
+    public Result(int code,String msg,T data){
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+    public Result(int code, String msg) {
+        this(code, msg, null);
     }
 
-    /**
-     * 失败
-     * @param msg
-     * @return
-     */
-    public static String fail(String msg){
-        //为true的话默认排序
-        json=new JSONObject(true);
-        json.put("status","500");
-        json.put("msg",msg);
-        json.put("data",null);
-        return json.toJSONString();
+    /*成功无返回值*/
+    public static Result success(String message) {
+        return new Result(200, message);
     }
 
-    /**
-     * 带数据失败
-     * @param msg
-     * @param obj
-     * @return
-     */
-    public static String fail(String msg,Object obj){
-        //为true的话默认排序
-        json=new JSONObject(true);
-        json.put("status","500");
-        json.put("msg",msg);
-        json.put("data",obj);
-        return json.toJSONString();
+    /*成功带返回值*/
+    public static <T> Result<T> success(String message, T data) {
+        return new Result(200, message, data);
+    }
+
+    /*失败无返回值*/
+    public static Result fail(int code, String msg) {
+        return new Result(code, msg);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code=" + code +
+                ", message='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return msg;
+    }
+
+    public void setMessage(String message) {
+        this.msg = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
