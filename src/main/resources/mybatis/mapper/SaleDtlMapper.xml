@@ -17,6 +17,12 @@
       and `sequence` = #{sequence,jdbcType=INTEGER}
       and item = #{item,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteBySaleCode" parameterType="map">
+    delete from sale_dtl
+    where sale_main_code = #{saleMainCode,jdbcType=VARCHAR}
+      and `sequence` = #{sequence,jdbcType=INTEGER}
+      and item = #{item,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.jdsoft.orm.model.SaleDtl">
     insert into sale_dtl (sale_main_code, `sequence`, item, 
       num, unit, unit_price, 

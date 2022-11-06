@@ -13,5 +13,7 @@ public interface InventoryMapper {
 
     List<Inventory> selectAll();
 
+    List<Inventory> qryInventory(String inventoryId, String commodityId, String commodityName);
+
     int updateByPrimaryKey(Inventory record);
 }

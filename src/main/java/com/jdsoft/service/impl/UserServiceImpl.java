@@ -7,8 +7,10 @@ import com.jdsoft.service.UserService;
 import com.jdsoft.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;

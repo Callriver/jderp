@@ -10,6 +10,8 @@ public interface CommodityMapper {
 
     Commodity selectByPrimaryKey(String commodityId);
 
+    List<Commodity> selectByName(String commodityName);
+
     List<Commodity> selectAll();
 
     int updateByPrimaryKey(Commodity record);

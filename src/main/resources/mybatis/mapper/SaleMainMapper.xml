@@ -49,4 +49,28 @@
     issued_user, issued_time, note
     from sale_main
   </select>
+  <select id="qrySaleOrder" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select sale_main_code, is_return, warehouse_id, currency, entry_user, entry_time,
+           issued_user, issued_time, note
+    from sale_main
+    where 1 = 1
+    <if test="saleCode!=null">
+      and sale_main_code = #{saleCode}
+    </if>
+    <if test="saleType!=null">
+      and is_return = #{saleType}
+    </if>
+    <if test="salePerson!=null">
+      and entry_user = #{salePerson}
+    </if>
+    <if test="beginDate!=null and endDate!=null"  >
+      and (entry_time between #{beginDate} and #{endDate})
+    </if>
+    <if test="beginDate!=null and endDate==null"  >
+      and entry_time > #{beginDate}
+    </if>
+    <if test="beginDate==null and endDate!=null"  >
+      and entry_time < #{endDate}
+    </if>
+  </select>
 </mapper>

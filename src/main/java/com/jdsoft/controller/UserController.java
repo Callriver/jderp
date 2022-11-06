@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController<passWord> {
     @Autowired
-    private UserService userService;
+    UserService userService;
     /**
      * 新增用户
      * @return

@@ -38,6 +38,12 @@
     from commodity
     where commodity_id = #{commodityId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+    select commodity_id, commodity_name, purchase_price, sales_price, commodity_image,
+           operation_user, operation_date
+    from commodity
+    where commodity_name like concat('%',#{commodityName,jdbcType=VARCHAR},'%')
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select commodity_id, commodity_name, purchase_price, sales_price, commodity_image, 
     operation_user, operation_date
